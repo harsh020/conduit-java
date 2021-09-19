@@ -1,0 +1,12 @@
+server:
+  port: 4000
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/springboot"
+    username: jpauser
+    password: jpauser
