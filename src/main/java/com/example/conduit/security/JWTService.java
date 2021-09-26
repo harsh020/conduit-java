@@ -22,7 +22,7 @@ public class JWTService {
 
     public String createJwt(User user) {
         return Jwts.builder()
-                .setSubject(user.getUsername())
+                .setSubject(user.getProfile().getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRY_AGE))
                 .signWith(key)
