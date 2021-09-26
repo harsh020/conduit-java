@@ -28,16 +28,16 @@ public class UserProfileResponse {
         Boolean following;
     }
 
-    public static UserProfileResponse fromUserEntity(User user, User profile) {
+    public static UserProfileResponse fromUserEntity(User user, User other) {
         Boolean following = Boolean.FALSE;
-//        if(user != null) {
-//            following = user.getFollowing().contains(profile);
-//        }
+        if(user != null) {
+            following = user.getFollowing().contains(other);
+        }
         return new UserProfileResponse(
                 new _Profile(
-                        profile.getUsername(),
-                        profile.getBio(),
-                        profile.getImage(),
+                        other.getUsername(),
+                        other.getBio(),
+                        other.getImage(),
                         following
                 )
         );

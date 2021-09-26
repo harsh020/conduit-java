@@ -83,8 +83,15 @@ public class UserController {
         );
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        return "Deleting user with id: " + id;
+    @DeleteMapping("/profile/{username}/follow")
+    ResponseEntity<UserProfileResponse> unfollowUser(@AuthenticationPrincipal User user,
+                                                     @PathVariable String username) {
+        user = userService.followUser(user, username);
+        return ResponseEntity.ok(
+                converter.entityToResponse(
+                        user,
+                        userService.getUserByUsername(username)
+                )
+        );
     }
 }
