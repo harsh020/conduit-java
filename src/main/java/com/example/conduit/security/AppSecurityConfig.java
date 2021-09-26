@@ -27,10 +27,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().disable().csrf().disable()
                 .authorizeRequests()
-                .mvcMatchers(HttpMethod.GET, "/profiles/*").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/api/profiles/*").permitAll()
                 .and()
                 .authorizeRequests()
-                .mvcMatchers(HttpMethod.POST, "/users", "/users/login").permitAll()
+                .mvcMatchers(HttpMethod.POST, "/api/users", "/api/users/login").permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()

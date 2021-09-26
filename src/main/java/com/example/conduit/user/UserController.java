@@ -5,6 +5,7 @@ import com.example.conduit.user.dtos.request.UserSignupRequest;
 import com.example.conduit.user.dtos.request.UserUpdateRequest;
 import com.example.conduit.user.dtos.response.UserProfileResponse;
 import com.example.conduit.user.dtos.response.UserResponse;
+import com.example.conduit.user.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,8 +26,8 @@ public class UserController {
     ResponseEntity<UserResponse> registerUser(@RequestBody UserSignupRequest body) {
         User user = userService.createNewUser(
                 body.getUser().getUsername(),
-                body.getUser().getPassword(),
-                body.getUser().getEmail()
+                body.getUser().getEmail(),
+                body.getUser().getPassword()
         );
 
         return new ResponseEntity<>(converter.entityToResponse(user), HttpStatus.CREATED);

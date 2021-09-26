@@ -1,6 +1,6 @@
 package com.example.conduit.security;
 
-import com.example.conduit.user.User;
+import com.example.conduit.user.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;

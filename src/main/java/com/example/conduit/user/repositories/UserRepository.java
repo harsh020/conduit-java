@@ -1,5 +1,6 @@
-package com.example.conduit.user;
+package com.example.conduit.user.repositories;
 
+import com.example.conduit.user.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

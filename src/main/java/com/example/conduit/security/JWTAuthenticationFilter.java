@@ -1,6 +1,6 @@
 package com.example.conduit.security;
 
-import com.example.conduit.user.User;
+import com.example.conduit.user.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

@@ -1,6 +1,10 @@
 package com.example.conduit.user;
 
 import com.example.conduit.user.exceptions.UserNotFoundException;
+import com.example.conduit.user.models.User;
+import com.example.conduit.user.models.UserProfile;
+import com.example.conduit.user.repositories.UserProfileRepository;
+import com.example.conduit.user.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -10,16 +14,21 @@ import java.util.NoSuchElementException;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final UserProfileRepository userprofileRepository;
 //    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserProfileRepository userProfileRepository) {
+        this.userprofileRepository = userProfileRepository;
         this.userRepository = userRepository;
 //        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public User createNewUser(String username, String password, String email) {
-        User user = new User(username, password, email);
+    public User createNewUser(String username, String email, String password) {
+        UserProfile profile = new UserProfile(username);
+        User user = new User(email, password);
+        user.setProfile(profile);
 
+        userprofileRepository.save(profile);
         return userRepository.save(user);
     }
 

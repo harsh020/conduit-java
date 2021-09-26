@@ -1,4 +1,4 @@
-package com.example.conduit.user;
+package com.example.conduit.user.models;
 
 import com.example.conduit.base.Base;
 import lombok.AllArgsConstructor;
@@ -22,8 +22,7 @@ public class User extends Base {
     @OneToOne
     private UserProfile profile;
 
-    public User(String username, String email, String password) {
-        this.profile.setUsername(username);
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
