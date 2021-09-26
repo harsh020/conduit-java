@@ -19,10 +19,9 @@ public class TagService {
     }
 
     Tag getTagByTitle(String title) {
-        Tag tag = tagRepository.findTagByTitle(title);
         //TODO: raise if tag is null
 
-        return tag;
+        return tagRepository.findTagByTitle(title);
     }
 
     List<Tag> getTags() {
