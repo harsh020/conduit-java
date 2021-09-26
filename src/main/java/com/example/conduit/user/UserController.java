@@ -32,7 +32,7 @@ public class UserController {
         return new ResponseEntity<>(converter.entityToResponse(user), HttpStatus.CREATED);
     }
 
-    @GetMapping("/users/login")
+    @PostMapping("/users/login")
     ResponseEntity<UserResponse> loginUser(@RequestBody UserLoginRequest body) {
         User user = userService.verifyUser(
                 body.getUser().getEmail(),
