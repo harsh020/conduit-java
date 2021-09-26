@@ -3,7 +3,7 @@
 - TimeStampedModel : Base
 - email : String
 - password : String
-- profile : UserProfile : [User (1 has 1) Profile]
+- profile : UserProfile : [User (1 has 1) UserProfile]
 
 -- -- 
 
