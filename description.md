@@ -13,8 +13,8 @@
 - username : String
 - bio : String
 - email : String
-- following : Set<User> : [UserProfile (n can follow m) User]
-- followedBy : Set<User> : [UserProfile (n can be followed by m) User]
+- following : Set<UserProfile> : [UserProfile (n can follow m) User]
+- followedBy : Set<UserProfile> : [UserProfile (n can be followed by m) User]
 
 -- -- 
 
