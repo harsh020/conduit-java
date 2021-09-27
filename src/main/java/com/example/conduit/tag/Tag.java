@@ -14,4 +14,6 @@ import javax.persistence.Entity;
 public class Tag extends Base {
     private String title;
     private String description;
+
+    //TODO[#4]: Add set of articles
 }

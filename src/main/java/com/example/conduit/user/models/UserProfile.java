@@ -22,6 +22,9 @@ public class UserProfile extends Base {
     private String bio;
     private String image;
 
+    //TODO[#1]: add articles favourited
+    //TODO[#2}: add authored articles
+
     public UserProfile(String username) {
         this.username = username;
     }
@@ -29,7 +32,7 @@ public class UserProfile extends Base {
     @ManyToMany
     @JoinTable(
             name="user_following",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "user_id"), //TODO[#3]: change name to profile_id
             inverseJoinColumns = @JoinColumn(name = "follow_id")
     )
     private Set<UserProfile> following;
