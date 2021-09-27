@@ -1,6 +1,6 @@
 package com.example.conduit.security;
 
-import com.example.conduit.user.User;
+import com.example.conduit.user.models.User;
 import com.example.conduit.user.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;

@@ -1,8 +1,10 @@
 package com.example.conduit.user;
 
-import com.example.conduit.user.exceptions.InvalidPasswordException;
 import com.example.conduit.user.exceptions.UserNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.example.conduit.user.models.User;
+import com.example.conduit.user.models.UserProfile;
+import com.example.conduit.user.repositories.UserProfileRepository;
+import com.example.conduit.user.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -12,19 +14,21 @@ import java.util.NoSuchElementException;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final UserProfileRepository userprofileRepository;
 //    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserProfileRepository userProfileRepository) {
+        this.userprofileRepository = userProfileRepository;
         this.userRepository = userRepository;
 //        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public User createNewUser(String username, String password, String email) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
+    public User createNewUser(String username, String email, String password) {
+        UserProfile profile = new UserProfile(username);
+        User user = new User(email, password);
+        user.setProfile(profile);
 
+        userprofileRepository.save(profile);
         return userRepository.save(user);
     }
 
@@ -53,23 +57,23 @@ public class UserService {
     }
 
     public User getUserByUsername(String username) {
-        User user = userRepository.findUserByUsername(username);
+        User user = userRepository.findUserByProfileUsername(username);
         if(user == null) throw new UserNotFoundException("User does not exist");
         return user;
     }
 
     public User updateUser(User user, String username, String password, String email, String bio, String image) {
-        if(user.getUsername() != null) user.setUsername(username);
+        if(user.getProfile().getUsername() != null) user.getProfile().setUsername(username);
         if(user.getEmail() != null) user.setPassword(password);
         if(user.getEmail() != null) user.setEmail(email);
-        if(user.getBio() != null) user.setBio(bio);
-        if(user.getImage() != null) user.setImage(image);
+        if(user.getProfile().getBio() != null) user.getProfile().setBio(bio);
+        if(user.getProfile().getImage() != null) user.getProfile().setImage(image);
         userRepository.save(user);
         return user;
     }
 
     public User followUser(User user, String follow) {
-        User follow_user = userRepository.findUserByUsername(follow);
+        User follow_user = userRepository.findUserByProfileUsername(follow);
         user.followUser(follow_user);
         follow_user.followedBy(user);
         userRepository.save(user);

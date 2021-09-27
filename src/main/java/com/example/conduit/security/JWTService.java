@@ -1,6 +1,6 @@
 package com.example.conduit.security;
 
-import com.example.conduit.user.User;
+import com.example.conduit.user.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
@@ -22,7 +22,7 @@ public class JWTService {
 
     public String createJwt(User user) {
         return Jwts.builder()
-                .setSubject(user.getUsername())
+                .setSubject(user.getProfile().getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRY_AGE))
                 .signWith(key)

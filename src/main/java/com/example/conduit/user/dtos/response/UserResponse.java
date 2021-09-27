@@ -1,6 +1,6 @@
 package com.example.conduit.user.dtos.response;
 
-import com.example.conduit.user.User;
+import com.example.conduit.user.models.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,11 +34,11 @@ public class UserResponse {
     public static UserResponse fromUserEntity(User user, String token) {
         return new UserResponse(
                 new _User(
-                        user.getUsername(),
+                        user.getProfile().getUsername(),
                         user.getEmail(),
                         token,
-                        user.getBio(),
-                        user.getImage()
+                        user.getProfile().getBio(),
+                        user.getProfile().getImage()
                 )
         );
     }

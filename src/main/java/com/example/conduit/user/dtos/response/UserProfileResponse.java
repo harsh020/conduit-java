@@ -1,6 +1,7 @@
 package com.example.conduit.user.dtos.response;
 
-import com.example.conduit.user.User;
+import com.example.conduit.user.models.User;
+import com.example.conduit.user.models.UserProfile;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,15 +30,13 @@ public class UserProfileResponse {
     }
 
     public static UserProfileResponse fromUserEntity(User user, User other) {
-        Boolean following = Boolean.FALSE;
-        if(user != null) {
-            following = user.getFollowing().contains(other);
-        }
+        UserProfile profile = user.getProfile();
+        Boolean following = profile.getFollowing().contains(other);
         return new UserProfileResponse(
                 new _Profile(
-                        other.getUsername(),
-                        other.getBio(),
-                        other.getImage(),
+                        profile.getUsername(),
+                        profile.getBio(),
+                        profile.getImage(),
                         following
                 )
         );

@@ -3,6 +3,7 @@ package com.example.conduit.user;
 import com.example.conduit.security.JWTService;
 import com.example.conduit.user.dtos.response.UserProfileResponse;
 import com.example.conduit.user.dtos.response.UserResponse;
+import com.example.conduit.user.models.User;
 import org.springframework.stereotype.Service;
 
 @Service
