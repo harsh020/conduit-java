@@ -28,7 +28,9 @@ public class ArticleController {
     }
 
     @PutMapping("/articles/{slug}")
-    String updateArticle(@AuthenticationPrincipal User author, @PathVariable String slug) {
+    String updateArticle(@AuthenticationPrincipal User author,
+                         @PathVariable String slug,
+                         @RequestBody String article) {
         return "update entire article " + slug + " by author " + author;
     }
 

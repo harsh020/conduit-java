@@ -27,7 +27,7 @@ public class Article extends Base {
     @OneToOne
     private UserProfile author;
 
-    //TODO[#5]: Add comments when created entity
+    //TODO[#5]: Add comments entity
 //    @OneToMany
 //    private Set<Comment> comments;
 
