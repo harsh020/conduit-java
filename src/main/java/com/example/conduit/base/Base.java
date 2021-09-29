@@ -1,5 +1,6 @@
 package com.example.conduit.base;
 
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
-
+@Getter
 @MappedSuperclass
 public class Base {
     @Id

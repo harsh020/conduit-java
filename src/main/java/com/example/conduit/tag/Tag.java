@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Tag extends Base {
+    //TODO: Remove description attribute, and rename title to name
     private String title;
     private String description;
 
