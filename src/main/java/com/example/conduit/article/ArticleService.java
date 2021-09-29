@@ -62,7 +62,7 @@ public class ArticleService {
 
     public List<Article> getArticlesByFilters(String author, String tagname, String favorite) {
         //TODO[#11]: Find some decent way to build complex filters
-        List<Article> articles = articleRepository.findAll().get();
+        List<Article> articles = (List<Article>) articleRepository.findAll();
         if(author!=null) {
             articles = articles.stream()
                     .distinct()
@@ -92,7 +92,7 @@ public class ArticleService {
         if(newTitle != null) article.setTitle(newTitle);
         if(newDesc != null) article.setDescription(newDesc);
         if(newBody != null) article.setBody(newBody);
-        if(newTags != null) article.setTags(newTags);
+        if(newTags != null) article.setTags((Set<Tag>) newTags);
 
         return articleRepository.save(article);
     }
