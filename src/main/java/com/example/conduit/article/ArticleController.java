@@ -16,9 +16,15 @@ public class ArticleController {
     ArticleService articleService;
     ArticleObjectConverter converter;
 
+    public ArticleController(ArticleService articleService, ArticleObjectConverter converter) {
+        this.articleService = articleService;
+        this.converter = converter;
+    }
+
     @PostMapping("/articles")
     ResponseEntity<ArticleResponse> createArticle(@AuthenticationPrincipal User user,
                                                   @RequestBody ArticleRequest details) {
+        System.out.println("user = " + user + ", details = " + details);
         Article article =  articleService.createArticle(
                 details.getArticle().getTitle(),
                 details.getArticle().getDescription(),

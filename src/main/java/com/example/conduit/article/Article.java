@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -45,9 +46,9 @@ public class Article extends Base {
             joinColumns = @JoinColumn(name = "article_slug"),
             inverseJoinColumns =  @JoinColumn(name = "tag_id")
     )
-    private Set<Tag> tags;
+    private List<Tag> tags;
 
-    public Article(String title, String description, String body, UserProfile author, Set<Tag> tags) {
+    public Article(String title, String description, String body, UserProfile author, List<Tag> tags) {
         this.slug = Translation.toSlug(title);
         this.title = title;
         this.description = description;

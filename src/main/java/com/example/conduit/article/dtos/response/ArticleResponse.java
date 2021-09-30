@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,11 +58,15 @@ public class ArticleResponse {
 
     public static ArticleResponse fromEntity(User user, Article article) {
         List<Tag> tags = (List<Tag>) article.getTags();
-        List<String> tagList = null;
+        List<String> tagList = new ArrayList<>();
 
         UserProfile userProfile = user.getProfile();
-        Boolean hasFavorited = article.getFavorited()
-                .contains(userProfile);
+        Boolean hasFavorited = false;
+        if(article.getFavorited() != null) {
+            hasFavorited = article.getFavorited()
+                    .contains(userProfile);
+        }
+
 
         tags.stream()
                 .map(tag -> tagList.add(tag.getTitle()));
@@ -76,7 +81,7 @@ public class ArticleResponse {
                         article.getCreated(),
                         article.getUpdated(),
                         hasFavorited,
-                        article.getFavorited().size(),
+                        (article.getFavorited()==null?0:article.getFavorited().size()),
                         article.getAuthor()
                 )
         );

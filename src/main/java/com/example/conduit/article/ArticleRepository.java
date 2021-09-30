@@ -7,13 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     Article findArticleBySlug(@Param("slug") String slug);
     List<Article> findArticlesByTitle(@Param("title") String title);
     List<Article> findArticlesByAuthor(@Param("author") UserProfile author);
-    List<Article> findArticlesByTag(@Param("tag") Tag tag);
-    List<Article> findArticlesByTags(@Param("tags") List<Tag> tags);
+//    List<Article> findArticlesByTags(@Param("tags") Set<Tag> tags);
     List<Article> findArticlesByFavorited(@Param("favorited") UserProfile favorited);
 }

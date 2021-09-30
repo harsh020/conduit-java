@@ -7,6 +7,7 @@ import com.example.conduit.user.models.User;
 import com.example.conduit.user.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class ArticleService {
         //TODO[#6]: Make Mony relationship consitent by making the fields as List<> instead of Set<>
         //TODO[#12]: Create a createTags function in tagService to create tags from list
 
-        List<Tag> tags = null;
+        List<Tag> tags = new ArrayList<>();
         for(String name: tagList) {
             //TODO[#13]: check if tag already exist, if not create new
             tags.add(tagService.createTag(name, ""));
@@ -43,7 +44,7 @@ public class ArticleService {
                 description,
                 body,
                 author.getProfile(),
-                (Set<Tag>) tags
+                tags
         );
         return articleRepository.save(article);
     }
@@ -59,11 +60,11 @@ public class ArticleService {
         return articleRepository.findArticlesByAuthor(user.getProfile());
     }
 
-    public List<Article> getArticlesByTag(String tagname) {
-        //TODO[#9]: Add InvalidTagException
-        Tag tag = tagRepository.findTagByTitle(tagname);
-        return articleRepository.findArticlesByTag(tag);
-    }
+//    public List<Article> getArticlesByTag(String tagname) {
+//        //TODO[#9]: Add InvalidTagException
+//        Tag tag = tagRepository.findTagByTitle(tagname);
+//        return articleRepository.findArticlesByTag(tag);
+//    }
 
     public List<Article> getArticlesByFavorited(String username) {
         //TODO[#10]: Add InvalidFavorited
@@ -81,12 +82,12 @@ public class ArticleService {
                     .collect(Collectors.toList());
         }
 
-        if(tagname!=null) {
-            articles = articles.stream()
-                    .distinct()
-                    .filter(getArticlesByTag(tagname)::contains)
-                    .collect(Collectors.toList());
-        }
+//        if(tagname!=null) {
+//            articles = articles.stream()
+//                    .distinct()
+//                    .filter(getArticlesByTag(tagname)::contains)
+//                    .collect(Collectors.toList());
+//        }
 
         if(favorite!=null) {
             articles = articles.stream()
@@ -99,7 +100,7 @@ public class ArticleService {
     }
 
     public Article updateArticle(String slug, String newTitle, String newDesc, String newBody, List<String> newTags) {
-        List<Tag> tagList = null;
+        List<Tag> tagList = new ArrayList<>();
         for(String tag: newTags) {
             Tag t = tagService.getTagByTitle(tag);
             if(t!=null) tagList.add(t);
@@ -109,7 +110,7 @@ public class ArticleService {
         if(newTitle != null) article.setTitle(newTitle);
         if(newDesc != null) article.setDescription(newDesc);
         if(newBody != null) article.setBody(newBody);
-        if(tagList != null) article.setTags((Set<Tag>) tagList);
+        if(tagList != null) article.setTags(tagList);
 
         return articleRepository.save(article);
     }
