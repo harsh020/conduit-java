@@ -25,8 +25,8 @@
 - title : String
 - description : String
 - body : String
-- favourited : Boolean
-- favouritesCount : Integer
+- favouritesCount : Long (Redundant)
+- favourited : [Article (n favourited by m) UserProfile]
 - author : UserProfile : [Article (n has 1) UserProfile/Author]
 - tag : Set<Tag> : [Article (n has m) Tags]
 - comments :  Comment : [Article (1 have n) Comment]
