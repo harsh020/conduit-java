@@ -1,5 +1,6 @@
 package com.example.conduit.comment;
 
+import com.example.conduit.article.Article;
 import com.example.conduit.base.Base;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,9 +26,8 @@ public class Comment extends Base {
     @OneToMany
     private Set<Comment> reply;
 
-    // TODO: Add this when article entity is implemented
-//    @ManyToOne
-//    private Article article;
+    @ManyToOne
+    private Article article;
 
     public Comment(String title, String body) {
         this.title = title;
