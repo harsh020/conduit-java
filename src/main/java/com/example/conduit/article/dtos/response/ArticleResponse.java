@@ -10,7 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.hibernate.Hibernate;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,11 +58,16 @@ public class ArticleResponse {
         UserProfile author;
     }
 
+    //TODO: The author fiels is not in accordance with the spi spec, fix it
     public static ArticleResponse fromEntity(User user, Article article) {
         List<Tag> tags = (List<Tag>) article.getTags();
+
         List<String> tagList = new ArrayList<>();
 
         UserProfile userProfile = user.getProfile();
+
+        UserProfile author = article.getAuthor();
+
         Boolean hasFavorited = false;
         if(article.getFavorited() != null) {
             hasFavorited = article.getFavorited()
@@ -71,7 +78,7 @@ public class ArticleResponse {
         tags.stream()
                 .map(tag -> tagList.add(tag.getTitle()));
 
-        return new ArticleResponse(
+        ArticleResponse a = new ArticleResponse(
                 new _Article(
                         article.getSlug(),
                         article.getTitle(),
@@ -82,8 +89,10 @@ public class ArticleResponse {
                         article.getUpdated(),
                         hasFavorited,
                         (article.getFavorited()==null?0:article.getFavorited().size()),
-                        article.getAuthor()
+                        author
                 )
         );
+        System.out.println("***hellp = " + ", article = " + a);
+        return a;
     }
 }

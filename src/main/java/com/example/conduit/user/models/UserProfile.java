@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -29,7 +26,7 @@ public class UserProfile extends Base {
         this.username = username;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) //TODO[#0]: Find reasonable fix, as lazily loading will give error in response
     @JoinTable(
             name="user_following",
             joinColumns = @JoinColumn(name = "user_id"), //TODO[#3]: change name to profile_id
@@ -37,7 +34,7 @@ public class UserProfile extends Base {
     )
     private Set<UserProfile> following;
 
-    @ManyToMany(mappedBy = "following")
+    @ManyToMany(mappedBy = "following", fetch = FetchType.EAGER)
     private Set<UserProfile> follow;
 
     public void followUser(User user) {

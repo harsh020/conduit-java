@@ -32,7 +32,7 @@ public class Article extends Base {
 //    @OneToMany
 //    private Set<Comment> comments;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "article_favourited",
             joinColumns = @JoinColumn(name = "article_slug"),
@@ -40,7 +40,7 @@ public class Article extends Base {
     )
     private Set<UserProfile> favorited;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "article_tag",
             joinColumns = @JoinColumn(name = "article_slug"),
