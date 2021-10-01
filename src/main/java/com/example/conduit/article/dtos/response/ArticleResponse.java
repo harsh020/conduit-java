@@ -60,7 +60,7 @@ public class ArticleResponse {
 
     //TODO: The author fiels is not in accordance with the spi spec, fix it
     public static ArticleResponse fromEntity(User user, Article article) {
-        List<Tag> tags = (List<Tag>) article.getTags();
+        List<Tag> tags = article.getTags();
 
         List<String> tagList = new ArrayList<>();
 
@@ -74,9 +74,9 @@ public class ArticleResponse {
                     .contains(userProfile);
         }
 
-
-        tags.stream()
-                .map(tag -> tagList.add(tag.getTitle()));
+        for(Tag t: tags) {
+            tagList.add(t.getTitle());
+        }
 
         ArticleResponse a = new ArticleResponse(
                 new _Article(
