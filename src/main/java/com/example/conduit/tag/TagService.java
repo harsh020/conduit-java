@@ -12,19 +12,19 @@ public class TagService {
         this.tagRepository = tagRepository;
     }
 
-    Tag createTag(String title, String description) {
+    public Tag createTag(String title, String description) {
         Tag tag = new Tag(title, description);
 
         return tagRepository.save(tag);
     }
 
-    Tag getTagByTitle(String title) {
+    public Tag getTagByTitle(String title) {
         //TODO: raise if tag is null
 
         return tagRepository.findTagByTitle(title);
     }
 
-    List<Tag> getTags() {
+    public List<Tag> getTags() {
         return tagRepository.findAll();
     }
 }

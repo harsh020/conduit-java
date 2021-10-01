@@ -29,6 +29,7 @@ public class UserProfileResponse {
         Boolean following;
     }
 
+    //TODO: Create function to fetch response useing UserProfile entities also
     public static UserProfileResponse fromUserEntity(User user, User other) {
         UserProfile profile = user.getProfile();
         Boolean following = profile.getFollowing().contains(other);
