@@ -12,7 +12,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -38,7 +37,7 @@ public class Article extends Base {
             joinColumns = @JoinColumn(name = "article_slug"),
             inverseJoinColumns = @JoinColumn(name = "profile_id")
     )
-    private Set<UserProfile> favorited;
+    private List<UserProfile> favorited;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
