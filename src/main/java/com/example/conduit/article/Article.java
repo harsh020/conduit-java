@@ -1,6 +1,7 @@
 package com.example.conduit.article;
 
 import com.example.conduit.base.Base;
+import com.example.conduit.comment.Comment;
 import com.example.conduit.tag.Tag;
 import com.example.conduit.user.models.UserProfile;
 import com.example.conduit.utils.Translation;
@@ -28,9 +29,8 @@ public class Article extends Base {
     @OneToOne
     private UserProfile author;
 
-    //TODO[#5]: Add comments entity
-//    @OneToMany
-//    private Set<Comment> comments;
+    @OneToMany
+    private List<Comment> comments;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

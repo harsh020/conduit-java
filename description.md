@@ -47,6 +47,6 @@
 - TimeStampedModel : Base
 - title : String
 - body : String
-- like : Long
+- like : Integer
 - reply : Comment : [Comment (1 has n) Comments/Reply]
 - article : Article : [Comment (n has 1) Article]
