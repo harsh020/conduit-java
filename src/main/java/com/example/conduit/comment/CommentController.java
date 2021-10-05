@@ -8,5 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class CommentController {
 
-    @PostMapping("/")
+    @PostMapping("/{slug}/{id}")
+
 }

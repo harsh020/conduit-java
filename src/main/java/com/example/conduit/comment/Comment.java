@@ -2,6 +2,7 @@ package com.example.conduit.comment;
 
 import com.example.conduit.article.Article;
 import com.example.conduit.base.Base;
+import com.example.conduit.user.models.UserProfile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,18 +20,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment extends Base {
-    private String title;
     private String body;
-    private Integer like = 0;
 
-    @OneToMany
-    private Set<Comment> reply;
+    @OneToOne
+    private UserProfile user;
 
     @ManyToOne
     private Article article;
-
-    public Comment(String title, String body) {
-        this.title = title;
-        this.body = body;
-    }
 }
