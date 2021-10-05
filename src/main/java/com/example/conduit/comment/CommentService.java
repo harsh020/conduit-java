@@ -2,6 +2,7 @@ package com.example.conduit.comment;
 
 import com.example.conduit.article.Article;
 import com.example.conduit.article.ArticleRepository;
+import com.example.conduit.article.exceptions.ArticleNotFoundException;
 import com.example.conduit.user.models.User;
 
 import java.util.List;
@@ -10,9 +11,16 @@ public class CommentService {
     CommentRepository commentRepository;
     ArticleRepository articleRepository;
 
+    public CommentService(CommentRepository commentRepository, ArticleRepository articleRepository) {
+        this.commentRepository = commentRepository;
+        this.articleRepository = articleRepository;
+    }
+
     public Comment createComment(User user, String slug, String body) {
-        //TODO: Check if article exists if not raise exception
         Article article = articleRepository.findArticleBySlug(slug);
+        if(article == null) {
+            throw new ArticleNotFoundException("The article that you are trying to find does not exist.");
+        }
 
         Comment comment = new Comment(body, user.getProfile(), article);
         List<Comment> comments = article.getComments();
@@ -24,13 +32,19 @@ public class CommentService {
     }
 
     public Comment getComment(String slug, Long id) {
-        //TODO: Check if article exists if not raise exception
+        Article article = articleRepository.findArticleBySlug(slug);
+        if(article == null) {
+            throw new ArticleNotFoundException("The article that you are trying to find does not exist.");
+        }
         return getCommentFromArticle(slug, id);
     }
 
     public List<Comment> getComments(String slug) {
-        //TODO: Check if article exists if not raise exception
         Article article = articleRepository.findArticleBySlug(slug);
+        if(article == null) {
+            throw new ArticleNotFoundException("The article that you are trying to find does not exist.");
+        }
+
 
         return article.getComments();
     }
