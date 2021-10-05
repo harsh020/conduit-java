@@ -51,7 +51,7 @@ public class ArticleService {
     public Article getArticlesBySlug(String slug) {
         Article article = articleRepository.findArticleBySlug(slug);
         if(article == null) {
-            return new ArticleNotFoundException("Article with slug + " slug + " does not exist!");
+            throw new ArticleNotFoundException("Article with slug " + slug + " does not exist!");
         }
         return articleRepository.findArticleBySlug(slug);
     }
