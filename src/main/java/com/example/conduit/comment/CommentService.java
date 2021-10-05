@@ -10,6 +10,11 @@ public class CommentService {
     CommentRepository commentRepository;
     ArticleRepository articleRepository;
 
+    public CommentService(CommentRepository commentRepository, ArticleRepository articleRepository) {
+        this.commentRepository = commentRepository;
+        this.articleRepository = articleRepository;
+    }
+
     public Comment createComment(User user, String slug, String body) {
         //TODO: Check if article exists if not raise exception
         Article article = articleRepository.findArticleBySlug(slug);
