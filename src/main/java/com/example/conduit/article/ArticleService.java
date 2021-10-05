@@ -1,5 +1,6 @@
 package com.example.conduit.article;
 
+import com.example.conduit.article.exceptions.ArticleNotFoundException;
 import com.example.conduit.tag.Tag;
 import com.example.conduit.tag.TagRepository;
 import com.example.conduit.tag.TagService;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +30,6 @@ public class ArticleService {
 
     public Article createArticle(String title, String description, String body,
                                  User author, List<String> tagList) {
-        //TODO[#6]: Make Mony relationship consitent by making the fields as List<> instead of Set<>
         //TODO[#12]: Create a createTags function in tagService to create tags from list
 
         List<Tag> tags = new ArrayList<>();
@@ -50,12 +49,14 @@ public class ArticleService {
     }
 
     public Article getArticlesBySlug(String slug) {
-        //TODO[#7]: Add ArticleNotFoundException
+        Article article = articleRepository.findArticleBySlug(slug);
+        if(article == null) {
+            throw new ArticleNotFoundException("Article with slug " + slug + " does not exist!");
+        }
         return articleRepository.findArticleBySlug(slug);
     }
 
     public List<Article> getArticlesByAuthor(String author) {
-        //TODO[#8]: Add InvalidAuthorException
         User user = userRepository.findUserByProfileUsername(author);
         return articleRepository.findArticlesByAuthor(user.getProfile());
     }
@@ -67,7 +68,6 @@ public class ArticleService {
 //    }
 
     public List<Article> getArticlesByFavorited(String username) {
-        //TODO[#10]: Add InvalidFavorited
         User user = userRepository.findUserByProfileUsername(username);
         return articleRepository.findArticlesByFavorited(user.getProfile());
     }
